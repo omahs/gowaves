@@ -238,10 +238,7 @@ func makeInvokeScriptTransactionAndObject(t *testing.T, sig, senderPublicKey, fe
 	require.NoError(t, err)
 	rcp, err := proto.NewRecipientFromString(recipient)
 	require.NoError(t, err)
-	fc := proto.FunctionCall{
-		Name:      functionName,
-		Arguments: proto.Arguments{&proto.IntegerArgument{Value: int64(arg)}},
-	}
+	fc := proto.NewFunctionCall(functionName, proto.Arguments{&proto.IntegerArgument{Value: int64(arg)}})
 	pa, err := proto.NewOptionalAssetFromString(paymentAsset)
 	require.NoError(t, err)
 	ps := []proto.ScriptPayment{{Amount: uint64(paymentAmount), Asset: *pa}}
@@ -414,13 +411,13 @@ func makeFullAssetInfo(digest crypto.Digest, pk crypto.PublicKey, address proto.
 			Reissuable:      true,
 			Scripted:        true,
 			Sponsored:       true,
+			IssueHeight:     100500,
 		},
 		Name:        "name",
 		Description: "description",
 		ScriptInfo: proto.ScriptInfo{
 			Version:    3,
 			Bytes:      script,
-			Base64:     base64.StdEncoding.EncodeToString(script),
 			Complexity: 4,
 		},
 		SponsorshipCost:  5,
