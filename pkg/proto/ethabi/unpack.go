@@ -324,7 +324,7 @@ func lengthPrefixPointsTo(index int, output []byte) (start, length, slotsReadTot
 	lengthBig := new(big.Int).SetBytes(bigLengthBytes)
 
 	//validate length
-	totalSize := big.NewInt(0)             // init with sero
+	totalSize := big.NewInt(0)             // init with zero
 	totalSize.Add(totalSize, bigOffsetEnd) // add offset
 	totalSize.Add(totalSize, lengthBig)    // add length
 	if totalSize.BitLen() > 63 {           // compare whether it's int64 or not
@@ -438,7 +438,7 @@ func toDataType(index int, t Type, output []byte) (_ DataType, slotsReadTotal in
 		slotsReadTotal += 1
 		if len(slot) == 0 {
 			return nil, 0, errors.Errorf(
-				"invalid etherum address size, expected %d, actual %d",
+				"invalid ethereum address size, expected %d, actual %d",
 				EthereumAddressSize, len(slot),
 			)
 		}
